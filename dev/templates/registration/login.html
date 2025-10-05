@@ -1,0 +1,219 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | The Naija Transport App </title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <meta name="google-adsense-account" content="ca-pub-4243484594296244">
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="google-site-verification" content="XVwBhttmbHoi01qSEDP4zxYZsek6gu5skkvsrpTOIa0" />
+    <style>
+        :root {
+            --brand-teal: #008080;
+            --brand-dark-teal: #006666;
+            --text-color: #333;
+            --light-grey: #f0f2f5;
+            --card-bg: #fff;
+            --shadow-light: 0 4px 12px rgba(0, 0, 0, 0.1);
+            --shadow-strong: 0 8px 24px rgba(0, 0, 0, 0.15);
+        }
+
+        body {
+            font-family: 'Inter', Arial, sans-serif;
+            background-color: var(--brand-teal);
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        .login-container {
+            width: 100%;
+            max-width: 400px; /* Increased max-width for better spacing */
+            padding: 2rem;
+            box-sizing: border-box;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        .login-card {
+            background: var(--card-bg);
+            border-radius: 16px; /* Slightly larger border-radius */
+            box-shadow: var(--shadow-strong);
+            padding: 3rem 2.5rem; /* Increased padding */
+        }
+
+        .brand-logo {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .brand-logo h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: white;
+            margin: 0;
+        }
+
+        .form-header {
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .form-header h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--text-color);
+            margin: 0 0 0.5rem;
+        }
+
+        .form-header p {
+            font-size: 0.9rem;
+            color: #777;
+        }
+        
+        .form-group {
+            margin-bottom: 1.25rem;
+        }
+
+        label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            color: #555;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            box-sizing: border-box;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        input[type="text"]:focus,
+        input[type="password"]:focus {
+            border-color: var(--brand-teal);
+            box-shadow: 0 0 0 3px rgba(0, 128, 128, 0.1);
+            outline: none;
+        }
+
+        .button-primary {
+            width: 100%;
+            padding: 0.75rem;
+            background-color: var(--brand-teal);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .button-primary:hover {
+            background-color: var(--brand-dark-teal);
+        }
+
+        .extra-options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.85rem;
+            margin-top: 1rem;
+        }
+
+        .extra-options a, .signup-link a {
+            color: var(--brand-teal);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .extra-options a:hover, .signup-link a:hover {
+            text-decoration: underline;
+        }
+
+        .alert-message {
+            margin-top: 1rem;
+            padding: 0.75rem;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            text-align: center;
+            background-color: #e74c3c;
+            color: #fff;
+            box-shadow: var(--shadow-light);
+        }
+
+        .signup-section {
+            margin-top: 1.5rem;
+            text-align: center;
+            font-size: 0.9rem;
+            color: #777;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="brand-logo">
+            <h2>9ja Transport App</h2>
+        </div>
+        
+        <div class="login-card">
+            <div class="form-header">
+                <h3>Welcome Back</h3>
+                <p>Sign in to your account to continue.</p>
+            </div>
+            
+            <form method="post" action="{% url 'login' %}">
+                {% csrf_token %}
+                
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" name="username" id="username" placeholder="Enter your username" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" name="password" id="password" placeholder="Enter your password" required>
+                </div>
+
+                <div class="extra-options">
+                    <label>
+                        <input type="checkbox" name="remember"> Remember me
+                    </label>
+                    <a href="{% url 'password_reset' %}">Forgot password?</a>
+                </div>
+
+                <button type="submit" class="button-primary">Login</button>
+
+                {% if messages %}
+                    <div class="alert-message">
+                        {% for message in messages %}
+                            {{ message }}
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </form>
+            
+            <div class="signup-section">
+                <span>Don't have an account?</span>
+                <a href="{% url 'signup' %}" class="signup-link">Sign Up</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

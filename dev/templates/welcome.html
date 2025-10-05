@@ -1,0 +1,12 @@
+<!-- This will serve as the welcome or homepage. -->
+<p>
+<p>
+<p>
+This is your homepage. Made with ❤
+</p>
+</p>
+</p>
+<form action="{% url 'logout' %}" method="post" class="d-inline">
+    {% csrf_token %}
+    <button type="submit" class="nav-link btn btn-link">Logout</button>
+</form>
