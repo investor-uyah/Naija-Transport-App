@@ -1,0 +1,206 @@
+{% load static %}
+
+{% block content %}
+<head>
+    <meta name="robots" content="noindex, nofollow">
+</head>
+<div class="login-container">
+    <div class="brand-logo">
+        <h2>9ja Transport App</h2>
+    </div>
+    
+    <div class="login-card">
+        <div class="form-header">
+            <h3>Create an Account</h3>
+            <p>Join our community to start updating prices.</p>
+        </div>
+        
+        <form method="post" action="{% url 'signup' %}">
+            {% csrf_token %}
+            
+            {% for field in form %}
+                <div class="form-group">
+                    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                    {{ field }}
+                    {% if field.help_text %}
+                        <small class="form-text text-muted">{{ field.help_text }}</small>
+                    {% endif %}
+                    {% for error in field.errors %}
+                        <div class="alert-message text-danger">{{ error }}</div>
+                    {% endfor %}
+                </div>
+            {% endfor %}
+
+            {% for error in form.non_field_errors %}
+                <div class="alert-message text-danger">{{ error }}</div>
+            {% endfor %}
+
+            <button type="submit" class="button-primary">Sign Up</button>
+        </form>
+        
+        <div class="signup-section">
+            <span>Already have an account?</span>
+            <a href="{% url 'login' %}" class="signup-link">Log In</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block styles %}
+<style>
+:root {
+    --brand-teal: #008080;
+    --brand-dark-teal: #006666;
+    --text-color: #333;
+    --light-grey: #f0f2f5;
+    --card-bg: #fff;
+    --shadow-light: 0 4px 12px rgba(0, 0, 0, 0.1);
+    --shadow-strong: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Inter', Arial, sans-serif;
+    background-color: var(--brand-teal);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column; /* Add flex-direction column */
+    justify-content: center;
+    align-items: center;
+    overflow-y: auto; /* Allow scrolling on smaller screens */
+}
+    
+.login-container {
+    max-width: 400px;
+    width: 100%;
+    padding: 1rem;
+    flex-grow: 1; /* Allow the container to grow and fill vertical space */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+    
+.login-card {
+    background-color: #fff;
+    border-radius: 0.75rem;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    padding: 1.25rem;
+}
+
+.brand-logo {
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.brand-logo h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: white;
+    margin: 0;
+}
+
+.form-header {
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+.form-header h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--text-color);
+    margin: 0 0 0.25rem;
+}
+
+.form-header p {
+    font-size: 0.85rem;
+    color: #777;
+}
+    
+.form-group {
+    margin-bottom: 1rem;
+}
+
+label {
+    display: block;
+    font-size: 0.8rem;
+    font-weight: 500;
+    margin-bottom: 0.35rem;
+    color: #555;
+}
+
+input {
+    width: 100%;
+    padding: 0.5rem 0.75rem;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    box-sizing: border-box;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+input:focus {
+    border-color: var(--brand-teal);
+    box-shadow: 0 0 0 2px rgba(0, 128, 128, 0.1);
+    outline: none;
+}
+
+.button-primary {
+    width: 100%;
+    padding: 0.6rem;
+    background-color: var(--brand-teal);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.button-primary:hover {
+    background-color: var(--brand-dark-teal);
+}
+
+.extra-options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.8rem;
+    margin-top: 0.75rem;
+}
+
+.extra-options a, .signup-link a {
+    color: var(--brand-teal);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.extra-options a:hover, .signup-link a:hover {
+    text-decoration: underline;
+}
+
+.alert-message {
+    margin-top: 0.75rem;
+    padding: 0.6rem;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    text-align: center;
+    background-color: #e74c3c;
+    color: #fff;
+    box-shadow: var(--shadow-light);
+}
+
+.signup-section {
+    margin-top: 1rem;
+    text-align: center;
+    font-size: 0.85rem;
+    color: #777;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+</style>
+{% endblock %}
